@@ -40,3 +40,26 @@ designSelect.addEventListener('change', e => {
         }
     }
 })
+
+//'Register for Activities' section
+const regFieldSet = document.getElementById('activities');
+const totalField = document.getElementById('activities-cost'); 
+let totalCost = 0;
+
+regFieldSet.addEventListener('change', (e) => {
+
+    const costAttribute = +(e.target.getAttribute('data-cost')); //+ is used to convert the string to a number. parseInt could be used instead. 
+    // console.log(costAttribute);
+    // console.log(typeof costAttribute);
+
+    if (e.target.checked === true) {
+        totalCost += costAttribute;
+    }   else {
+        totalCost -= costAttribute;
+    }
+    // console.log(totalCost);
+    // console.log(e.target.checked);
+
+    totalField.innerHTML = (`Total: $${totalCost}`);
+})
+
