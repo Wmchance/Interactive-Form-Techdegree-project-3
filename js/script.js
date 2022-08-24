@@ -1,8 +1,12 @@
-//'Name' section
+/*
+'Name' section
+*/
 const nameField = document.getElementById('name');
 nameField.focus();
 
-//'Job role' section
+/*
+'Job role' section
+*/
 const jobRoleField = document.getElementById('title');
 const otherJobField = document.getElementById('other-job-role');
 otherJobField.type = 'hidden';
@@ -16,7 +20,9 @@ jobRoleField.addEventListener ('change', (e) => {
 
 })
 
-//'T-shirt info' section 
+/*
+'T-shirt info' section 
+*/
 const designSelect = document.getElementById('design');
 const colorSelect = document.getElementById('color');
 const colorOptions = colorSelect.children;
@@ -41,7 +47,9 @@ designSelect.addEventListener('change', e => {
     }
 })
 
-//'Register for Activities' section
+/*
+'Register for Activities' section
+*/
 const regFieldSet = document.getElementById('activities');
 const totalField = document.getElementById('activities-cost'); 
 let totalCost = 0;
@@ -63,3 +71,27 @@ regFieldSet.addEventListener('change', (e) => {
     totalField.innerHTML = (`Total: $${totalCost}`);
 })
 
+/*
+'Payment info' Section
+*/
+const paymentMethod = document.getElementById('payment');
+const creditCardPayment = document.getElementById('credit-card');
+const paypalPayment = document.getElementById('paypal');
+const bitcoinPayment = document.getElementById('bitcoin');
+
+paypalPayment.hidden = true;
+bitcoinPayment.hidden = true;
+paymentMethod.children[1].setAttribute('selected', '');
+
+paymentMethod.addEventListener('change', (e) => {
+
+    const changeTarget = e.target.value; 
+    for (let i=1; i<paymentMethod.length; i++) {
+        if (changeTarget === paymentMethod.children[i].value) {
+            document.getElementById(`${paymentMethod.children[i].value}`).hidden = false;
+        } else {
+            document.getElementById(`${paymentMethod.children[i].value}`).hidden = true;
+        }
+    }
+
+})
