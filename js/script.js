@@ -109,7 +109,6 @@ const creditCardNumInput = document.getElementById('cc-num');
 const zipCodeInput = document.getElementById('zip');
 const cvvInput = document.getElementById('cvv');
 const formElem = document.querySelector('form');
-const activitiesDiv = document.getElementById('activities-box');
 
 let nameIsValid;
 
@@ -206,7 +205,29 @@ const notValidIndication = function (inputName, isValid) {
 Prevent users from registering for conflicting activities
 */
 //.getAttribute('data-theme')
+//const activitiesInput = document.querySelectorAll('input[type="checkbox"]');
+const activitiesDiv = document.getElementById('activities-box');
 
-
+activitiesDiv.addEventListener('change', (e) => {
+    if (e.target.checked === true) {
+        for(let i=0; i<activitiesInput.length; i++) {
+            if (e.target.getAttribute('name') !== activitiesInput[i].getAttribute('name')) {
+                if (e.target.getAttribute('data-day-and-time') === activitiesInput[i].getAttribute('data-day-and-time')) {
+                    activitiesInput[i].disabled = true; 
+                    activitiesInput[i].parentElement.classList.add('disabled'); 
+                }
+            }
+        }
+    } else {
+        for(let i=0; i<activitiesInput.length; i++) {
+            if (e.target.getAttribute('name') !== activitiesInput[i].getAttribute('name')) {
+                if (e.target.getAttribute('data-day-and-time') === activitiesInput[i].getAttribute('data-day-and-time')) {
+                    activitiesInput[i].disabled = false; 
+                    activitiesInput[i].parentElement.classList.remove('disabled'); 
+                }
+            }
+        } 
+    }
+})
 
 
