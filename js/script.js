@@ -231,10 +231,63 @@ activitiesDiv.addEventListener('change', (e) => {
 })
 
 /*
-Real-time error message
+Real-time error & Conditional error messages
 */
+
+//Email Real-time error
 //const emailInput = document.getElementById('email');
 emailInput.addEventListener('keyup', (e) => {
     const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(e.target.value); //regex from Treehouse Project Warm Up 'Form Input Validation - JS'
     notValidIndication(emailInput, emailIsValid);
+})
+
+//Credit Card number Real-time error & Conditional error messages
+//const creditCardNumIsValid = /^[0-9]{13,16}$/.test(creditCardNumValue);
+//const creditCardNumInput = document.getElementById('cc-num');
+const ccHint = document.getElementById('cc-hint'); 
+
+creditCardNumInput.addEventListener('keyup', (e) => {
+    const creditCardNumIsValid = /^[0-9]{13,16}$/.test(e.target.value);
+
+    if (/[a-zA-Z]/.test(e.target.value) === true) {
+        ccHint.innerText = 'Credit card number cannot contain letters';
+    } else {
+        ccHint.innerText = 'Credit card number must be between 13 - 16 digits';
+    }
+
+    notValidIndication(creditCardNumInput, creditCardNumIsValid);
+})
+
+//Zip Code Real-time error & Conditional error messages
+//const zipCodeIsValid = /^[0-9]{5}$/.test(zipCodeValue);
+//const zipCodeInput = document.getElementById('zip');
+const zipHint = document.getElementById('zip-hint'); 
+
+zipCodeInput.addEventListener('keyup', (e) => {
+    const zipCodeIsValid = /^[0-9]{5}$/.test(e.target.value);
+
+    if (/[a-zA-Z]/.test(e.target.value) === true) {
+        zipHint.innerText = 'Zip Code cannot contain letters';
+    } else {
+        zipHint.innerText = 'Zip Code must be 5 digits';
+    }
+
+    notValidIndication(zipCodeInput, zipCodeIsValid);
+})
+
+//CVV Real-time error & Conditional error messages
+//const cvvIsValid = /^[0-9]{3}$/.test(cvvValue);
+//const cvvInput = document.getElementById('cvv');
+const cvvHint = document.getElementById('cvv-hint'); 
+
+cvvInput.addEventListener('keyup', (e) => {
+    const cvvIsValid = /^[0-9]{3}$/.test(e.target.value);
+
+    if (/[a-zA-Z]/.test(e.target.value) === true) {
+        cvvHint.innerText = 'CVV cannot contain letters';
+    } else {
+        cvvHint.innerText = 'CVV must be 3 digits';
+    }
+
+    notValidIndication(cvvInput, cvvIsValid);
 })
