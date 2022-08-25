@@ -109,25 +109,37 @@ const creditCardNumInput = document.getElementById('cc-num');
 const zipCodeInput = document.getElementById('zip');
 const cvvInput = document.getElementById('cvv');
 const formElem = document.querySelector('form');
+const activitiesDiv = document.getElementById('activities-box');
+
+let nameIsValid;
 
 formElem.addEventListener('submit', (e) => {
     //Name validation
     const nameFieldValue = nameField.value;
-    const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameFieldValue);
+    nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameFieldValue); //regex from Treehouse Project Warm Up 'Form Input Validation - JS'
     if (nameIsValid === false) {
         e.preventDefault();
     }
+    notValidIndication(nameField, nameIsValid);
     
     //Email validation
     const emailValue = emailInput.value;
-    const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
+    const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue); //regex from Treehouse Project Warm Up 'Form Input Validation - JS'
     if (emailIsValid === false) {
         e.preventDefault();
     }
+    notValidIndication(emailInput, emailIsValid);
 
-    //Activities selected validation 
+    //Activities selected validation & error indications
     if (totalActivities === 0) {
         e.preventDefault();
+        regFieldSet.classList.add('not-valid');
+        regFieldSet.classList.remove('valid');
+        regFieldSet.lastElementChild.classList.remove('hint');
+    } else {
+        regFieldSet.classList.add('valid'); 
+        regFieldSet.classList.remove('not-valid');
+        regFieldSet.lastElementChild.classList.add('hint');
     }
 
     //Credit Card validation
@@ -139,6 +151,7 @@ formElem.addEventListener('submit', (e) => {
         if (creditCardNumIsValid === false) {
             e.preventDefault();
         }
+        notValidIndication(creditCardNumInput, creditCardNumIsValid);
 
         //Zip code validation
         const zipCodeValue = zipCodeInput.value;
@@ -146,6 +159,7 @@ formElem.addEventListener('submit', (e) => {
         if (zipCodeIsValid === false) {
             e.preventDefault();
         }
+        notValidIndication(zipCodeInput, zipCodeIsValid);
 
         //CVV validation
         const cvvValue = cvvInput.value;
@@ -153,6 +167,46 @@ formElem.addEventListener('submit', (e) => {
         if (cvvIsValid === false) {
             e.preventDefault();
         }
+        notValidIndication(cvvInput, cvvIsValid);
     }
 
 })
+
+/*
+Accessibility section 
+*/
+
+//Add visual focus indication to 'in focus' activities elements
+const activitiesInput = document.querySelectorAll('input[type="checkbox"]');
+
+for (let i=0; i<activitiesInput.length; i++) {
+    activitiesInput[i].addEventListener('focus', (e) => {
+        activitiesInput[i].parentElement.classList.add('focus');
+    })
+
+    activitiesInput[i].addEventListener('blur', (e) => {
+        activitiesInput[i].parentElement.classList.remove('focus');
+    })
+}
+
+//Add form input validation error indications - Function called in 'submit' event listener
+const notValidIndication = function (inputName, isValid) {
+    if (isValid === false) {
+        inputName.parentElement.classList.add('not-valid'); 
+        inputName.parentElement.classList.remove('valid');
+        inputName.parentElement.lastElementChild.classList.remove('hint');
+    } else {
+        inputName.parentElement.classList.add('valid'); 
+        inputName.parentElement.classList.remove('not-valid');
+        inputName.parentElement.lastElementChild.classList.add('hint');
+    }
+}
+
+/*
+Prevent users from registering for conflicting activities
+*/
+//.getAttribute('data-theme')
+
+
+
+
