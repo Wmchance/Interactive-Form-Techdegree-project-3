@@ -230,4 +230,11 @@ activitiesDiv.addEventListener('change', (e) => {
     }
 })
 
-
+/*
+Real-time error message
+*/
+//const emailInput = document.getElementById('email');
+emailInput.addEventListener('keyup', (e) => {
+    const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(e.target.value); //regex from Treehouse Project Warm Up 'Form Input Validation - JS'
+    notValidIndication(emailInput, emailIsValid);
+})
